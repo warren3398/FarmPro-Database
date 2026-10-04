@@ -1,0 +1,1 @@
+v0.7.3 NAVFIX: upload BOTH index.html and database.html. Fixes JavaScript break that disabled sidebar navigation.
