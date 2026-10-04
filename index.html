@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FARMPro Central Database</title><style>
+body{margin:0;background:#f4f8f5;font-family:Arial,sans-serif;min-height:100vh;display:grid;place-items:center}
+.card{width:min(460px,90vw);background:#fff;border:1px solid #cfe2d6;border-radius:22px;padding:32px;box-shadow:0 18px 55px #0002}
+h1{margin:0;color:#07633d}p{color:#64736b}input,button{width:100%;box-sizing:border-box;padding:14px;margin:7px 0;border-radius:11px;font-size:16px}
+input{border:1px solid #c8d5cd}button{border:0;background:#087443;color:#fff;font-weight:bold;cursor:pointer}#msg{margin-top:12px;font-size:14px;white-space:pre-wrap}
+</style></head><body><form class="card" id="form"><h1>FARMPro Central Database</h1>
+<p>BSWM • Agricultural Land Management and Evaluation Division</p>
+<input id="email" type="email" placeholder="Admin email" required><input id="password" type="password" placeholder="Password" required>
+<button id="btn" type="submit">Sign in to FARMPro</button><div id="msg">Authorized administrators only.</div></form>
+<script>
+const BASE='https://mztgzswqjkjsqllwmmtf.supabase.co',KEY='sb_publishable_tsdXRlwESHukN0PezxMtQQ_xsfByNrQ';const form=document.getElementById('form'),msg=document.getElementById('msg'),btn=document.getElementById('btn');
+form.addEventListener('submit',async e=>{e.preventDefault();msg.textContent='Connecting securely...';btn.disabled=true;btn.textContent='Signing in...';
+try{const r=await fetch(BASE+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},body:JSON.stringify({email:email.value.trim(),password:password.value})});const raw=await r.text();let d={};try{d=JSON.parse(raw)}catch(_e){}
+if(!r.ok)throw Error('HTTP '+r.status+' — '+(d.msg||d.message||raw));if(!d.access_token)throw Error('No access token returned.');
+sessionStorage.setItem('farmpro_admin_access_token',d.access_token);location.href='database.html';
+}catch(x){msg.style.color='#b42318';msg.textContent='Sign in failed: '+x.message;btn.disabled=false;btn.textContent='Sign in to FARMPro';}});
+</script></body></html>
