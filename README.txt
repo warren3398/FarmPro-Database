@@ -1,1 +1,0 @@
-Upload BOTH index.html and database.html to the root of FarmPro-Database. Login is isolated from the original v0.5 database UI.
